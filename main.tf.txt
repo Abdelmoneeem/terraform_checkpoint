@@ -4,17 +4,15 @@ variable "instance_size" {
 }
 
 resource "aws_instance" "web" {
-  ami = "ami-12345678"
-  instance_type = var.instance_size
+  instance_type = instance_size
   subnet_id = "subnet-12345678"
-  security_group_ids = ["sg-12345678"]
-  key_name = "my_key_pair"
+  key_name = "moneem"
+  ami = "monem"
 }
 
 resource "aws_network_interface" "web" {
   subnet_id = "subnet-12345678"
   private_ip = "10.0.0.10"
-  associate_public_ip_address = true
 }
 
 resource "aws_security_group" "web" {
@@ -22,13 +20,15 @@ resource "aws_security_group" "web" {
   description = "Allow SSH and HTTP"
   ingress {
     protocol = "tcp"
-    port = 22
     cidr_blocks = ["0.0.0.0/0"]
+    from_port = 22
+    to_port = 22
   }
   ingress {
     protocol = "tcp"
-    port = 80
     cidr_blocks = ["0.0.0.0/0"]
+    from_port = 80
+    to_port = 80
   }
 }
 
